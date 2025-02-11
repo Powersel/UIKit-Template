@@ -83,7 +83,6 @@ extension NetworkService: NetworkServiceProtocol {
     guard let url = URL(string: urlStr) else { throw NetworkError.missingURL }
     
     do {
-      let url = try constructURL(urlStr, [:])
       var urlRequest = URLRequest(url: url)
       urlRequest.httpMethod = "GET"
       let data = try await processRequest(urlRequest)
