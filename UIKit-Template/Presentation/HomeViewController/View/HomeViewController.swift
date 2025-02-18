@@ -5,6 +5,7 @@ final class HomeViewController: UIViewController {
   private let coordinator: AppCoordinator
   private let viewModel: HomeViewModelProtocol
   private let tableView = UITableView()
+  private let searchBar = SearchBarViewComponent()
   
   init(_ coordinator: AppCoordinator, _ viewModel: HomeViewModelProtocol) {
     self.coordinator = coordinator
@@ -27,11 +28,26 @@ final class HomeViewController: UIViewController {
 // MARK: - Private
 private extension HomeViewController {
   func configureUI() {
+    view.addSubview(searchBar)
+    searchBar.translatesAutoresizingMaskIntoConstraints = false
+    
     view.addSubview(tableView)
-    tableView.frame = view.bounds
+    tableView.translatesAutoresizingMaskIntoConstraints = false
+    
     tableView.delegate = self
     tableView.dataSource = self
     tableView.register(HomeViewTableCell.self, forCellReuseIdentifier: HomeViewTableCell.cellID)
+    
+    NSLayoutConstraint.activate([
+      searchBar.topAnchor.constraint(equalTo: view.topAnchor),
+      searchBar.widthAnchor.constraint(equalTo: view.widthAnchor),
+      searchBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
+      searchBar.heightAnchor.constraint(equalToConstant: 50),
+      tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+      tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+    ])
   }
   
   func loadInitialData() {

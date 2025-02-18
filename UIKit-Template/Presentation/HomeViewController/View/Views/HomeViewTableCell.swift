@@ -22,6 +22,11 @@ final class HomeViewTableCell: UITableViewCell {
     titleLabel.text = nil
     descriptionLabel.text = nil
   }
+  
+  func configure(with title: String, descriptionTitle: String) {
+    titleLabel.text = title
+    descriptionLabel.text = descriptionTitle
+  }
 }
 
 private extension HomeViewTableCell {
