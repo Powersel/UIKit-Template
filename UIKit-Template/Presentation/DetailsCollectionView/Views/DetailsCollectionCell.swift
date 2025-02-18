@@ -25,9 +25,8 @@ final class DetailsCollectionCell: UICollectionViewCell {
     titleLabel.text = nil
   }
   
-  // Configure the cell with the image name
-  func configure(with imageName: String) {
-    titleLabel.text = imageName
+  func configure(with text: String) {
+    titleLabel.text = text
   }
   
   private func setupView() {
