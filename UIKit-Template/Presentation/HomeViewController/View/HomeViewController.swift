@@ -2,13 +2,10 @@ import UIKit
 
 final class HomeViewController: UIViewController {
   
-  private let coordinator: AppCoordinator
   private let viewModel: HomeViewModelProtocol
   private let tableView = UITableView()
-  private let searchBar = SearchBarViewComponent()
   
-  init(_ coordinator: AppCoordinator, _ viewModel: HomeViewModelProtocol) {
-    self.coordinator = coordinator
+  init(_ viewModel: HomeViewModelProtocol) {
     self.viewModel = viewModel
     super.init(nibName: nil, bundle: nil)
   }
@@ -28,8 +25,7 @@ final class HomeViewController: UIViewController {
 // MARK: - Private
 private extension HomeViewController {
   func configureUI() {
-    view.addSubview(searchBar)
-    searchBar.translatesAutoresizingMaskIntoConstraints = false
+    title = "Home screen"
     
     view.addSubview(tableView)
     tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,11 +35,7 @@ private extension HomeViewController {
     tableView.register(HomeViewTableCell.self, forCellReuseIdentifier: HomeViewTableCell.cellID)
     
     NSLayoutConstraint.activate([
-      searchBar.topAnchor.constraint(equalTo: view.topAnchor),
-      searchBar.widthAnchor.constraint(equalTo: view.widthAnchor),
-      searchBar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.15),
-      searchBar.heightAnchor.constraint(equalToConstant: 50),
-      tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+      tableView.topAnchor.constraint(equalTo: view.topAnchor),
       tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
       tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -60,7 +52,7 @@ private extension HomeViewController {
 // MARK: - UITableViewDataSource
 extension HomeViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    print("Selected row: \(indexPath.row)")
+    viewModel.openDetailsScreen()
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

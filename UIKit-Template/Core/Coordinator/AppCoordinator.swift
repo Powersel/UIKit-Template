@@ -2,6 +2,8 @@ import UIKit
 
 protocol AppCoordinator {
   func start()
+  func handle(route: AppRoute)
+  func handleBackAction()
 }
 
 final class MainCoordinator: AppCoordinator {
@@ -14,10 +16,23 @@ final class MainCoordinator: AppCoordinator {
   }
   
   func start() {
-    let viewModel = HomeViewModel()
-    let homeViewController = HomeViewController(self, viewModel)
+    let homeViewController = HomeFactory.makeHomeScreen(self)
     navigationController.viewControllers = [homeViewController]
     window.rootViewController = navigationController
     window.makeKeyAndVisible()
+  }
+  
+  func handle(route: AppRoute) {
+    switch route {
+    case .home:
+      break
+    case .details:
+      let detailsScreen = DetailsFactory.makeDetailsScreen(self)
+      navigationController.pushViewController(detailsScreen, animated: true)
+    }
+  }
+  
+  func handleBackAction() {
+    navigationController.popViewController(animated: true)
   }
 }
