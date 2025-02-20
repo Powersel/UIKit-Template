@@ -44,7 +44,14 @@ private extension HomeViewController {
   
   func loadInitialData() {
     Task {
-      tableView.reloadData()
+      do {
+        try await viewModel.loadData()
+        DispatchQueue.main.async { [weak self] in
+          self?.tableView.reloadData()
+        }
+      } catch {
+        // Hadnle error state
+      }
     }
   }
 }
