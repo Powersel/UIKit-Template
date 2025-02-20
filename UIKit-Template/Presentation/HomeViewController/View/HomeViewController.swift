@@ -18,7 +18,7 @@ final class HomeViewController: UIViewController {
     super.viewDidLoad()
     
     configureUI()
-    loadInitialData()
+    loadData()
   }
 }
 
@@ -42,7 +42,7 @@ private extension HomeViewController {
     ])
   }
   
-  func loadInitialData() {
+  func loadData() {
     Task {
       do {
         try await viewModel.loadData()
