@@ -5,12 +5,14 @@ enum APIEndpoint {
   static let apiKey: String = ""
   
   case base
+  case details
 }
 
 extension APIEndpoint {
   var path: String {
     switch self {
-      case .base: return baseURL
+    case .base: return baseURL
+    case .details: return baseURL
     }
   }
 }

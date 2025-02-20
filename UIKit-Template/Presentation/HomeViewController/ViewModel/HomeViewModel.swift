@@ -2,7 +2,6 @@ import Foundation
 
 protocol HomeViewModelProtocol: BaseViewModelProtocol {
   var item: BaseDTOModel { get }
-  var state: ViewModelState { get }
   
   func openDetailsScreen()
 }
